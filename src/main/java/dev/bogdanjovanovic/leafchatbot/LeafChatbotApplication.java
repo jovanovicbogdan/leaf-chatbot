@@ -1,7 +1,9 @@
 package dev.bogdanjovanovic.leafchatbot;
 
+import java.util.List;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.document.Document;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,13 +18,18 @@ public class LeafChatbotApplication {
   }
 
   @Bean
-  CommandLineRunner commandLineRunner(@Qualifier("openAiChatClient") ChatClient openAiChatClient) {
+  CommandLineRunner commandLineRunner(
+      @Qualifier("openAiChatClient") ChatClient openAiChatClient,
+      CustomMarkdownReader markdownReader
+  ) {
     return args -> {
-      ChatResponse chatResponse = openAiChatClient.prompt()
-          .user("Tell me a joke")
-          .call()
-          .chatResponse();
-      System.out.println(chatResponse.getResult().getOutput().getText());
+//      ChatResponse chatResponse = openAiChatClient.prompt()
+//          .user("Tell me a joke")
+//          .call()
+//          .chatResponse();
+//      System.out.println(chatResponse.getResult().getOutput().getText());
+      List<Document> documents = markdownReader.loadMarkdown();
+      System.out.println(documents);
     };
   }
 
