@@ -1,9 +1,6 @@
 package dev.bogdanjovanovic.leafchatbot;
 
-import java.util.List;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.document.Document;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +25,7 @@ public class LeafChatbotApplication {
 //          .call()
 //          .chatResponse();
 //      System.out.println(chatResponse.getResult().getOutput().getText());
-      List<Document> documents = markdownReader.loadMarkdown();
+      final var documents = markdownReader.loadMarkdown();
       System.out.println(documents);
     };
   }
