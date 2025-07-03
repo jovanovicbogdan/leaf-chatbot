@@ -8,15 +8,16 @@ import java.util.List;
 import java.util.stream.Stream;
 import org.springframework.ai.reader.markdown.MarkdownDocumentReader;
 import org.springframework.ai.reader.markdown.config.MarkdownDocumentReaderConfig;
+import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomMarkdownReader {
+public class LeafMarkdownReader {
 
   private final List<FileSystemResource> resources;
 
-  public CustomMarkdownReader() {
+  public LeafMarkdownReader() {
     final var leafDocs = System.getenv("LEAF_MARKDOWN_DIR");
     if (leafDocs == null || leafDocs.isEmpty()) {
       throw new RuntimeException("Please set LEAF_MARKDOWN_DIR environment variable.");
@@ -43,8 +44,11 @@ public class CustomMarkdownReader {
           config.withAdditionalMetadata("filename", filename);
 
           final var reader = new MarkdownDocumentReader(r, config.build());
+          final var documents = reader.get();
 
-          return new LoadedMarkdownFile(filename, reader.get());
+          final var splitter = new TokenTextSplitter();
+
+          return new LoadedMarkdownFile(filename, documents, splitter.apply(documents));
         }).toList();
   }
 

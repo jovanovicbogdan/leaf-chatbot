@@ -7,6 +7,12 @@ spring:
     password: rootpassword
     driver-class-name: org.postgresql.Driver
   ai:
+    vectorstore:
+      pgvector:
+        index-type: hnsw
+        distance-type: cosine_distance
+        dimensions: 1536
+        max-document-batch-size: 10000
     anthropic:
       api-key: ${ANTHROPIC_API_KEY}
     openai:
@@ -15,6 +21,9 @@ spring:
         options:
           model: gpt-4o
           temperature: 0.7
+      embedding:
+        options:
+          model: text-embedding-ada-002
     chat:
       client:
         enabled: false

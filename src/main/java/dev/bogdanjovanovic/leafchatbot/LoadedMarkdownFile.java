@@ -5,7 +5,8 @@ import org.springframework.ai.document.Document;
 
 public record LoadedMarkdownFile(
     String filename,
-    List<Document> documents
+    List<Document> documents,
+    List<Document> splitDocuments
 ) {
 
 }
