@@ -6,6 +6,10 @@ spring:
     username: postgres
     password: rootpassword
     driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: optional:classpath:schema.sql # optional means that app will start even if the file doesn't exist
   ai:
     vectorstore:
       pgvector:
@@ -21,7 +25,8 @@ spring:
           temperature: 0.7
       embedding:
         options:
-          model: text-embedding-ada-002
+          model: text-embedding-3-small
+          dimensions: 1536
     chat:
       client:
         enabled: false

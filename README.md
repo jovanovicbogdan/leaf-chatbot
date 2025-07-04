@@ -17,7 +17,7 @@ Leaf Chatbot is a Retrieval-Augmented Generation (RAG) application designed to a
 2. Put Markdown files in `leaf-docs` directory in root project dir.
 3. Run `docker compose up -d`
 
-When data is ingested, embeddings are generated for the provided markdown files using OpenAI's `text-embedding-ada-002` model and stored in a `pgvector` database. The endpoint below will first remove any existing embeddings before recalculating them. It also recursively indexes all markdown files located within the `leaf-docs` directory and its subdirectories.
+When data is ingested, embeddings are generated for the provided markdown files using OpenAI's `text-embedding-3-small` model and stored in a `pgvector` database. The endpoint below will first remove any existing embeddings before recalculating them. It also recursively indexes all markdown files located within the `leaf-docs` directory and its subdirectories.
 
 ```shell
 POST http://localhost:8080/api/v1/ingest
