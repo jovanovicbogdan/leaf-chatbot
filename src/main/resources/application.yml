@@ -13,8 +13,6 @@ spring:
         distance-type: cosine_distance
         dimensions: 1536
         max-document-batch-size: 10000
-    anthropic:
-      api-key: ${ANTHROPIC_API_KEY}
     openai:
       api-key: ${OPENAI_API_KEY}
       chat:

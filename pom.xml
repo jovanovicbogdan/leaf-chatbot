@@ -11,7 +11,7 @@
   </parent>
   <groupId>dev.bogdanjovanovic</groupId>
   <artifactId>leaf-chatbot</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>leaf-chatbot</name>
   <description>leaf-chatbot</description>
   <url/>
@@ -63,6 +63,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -80,6 +81,18 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <docker>
+            <publishRegistry>
+              <username>${docker.publishRegistry.username}</username>
+              <password>${docker.publishRegistry.password}</password>
+            </publishRegistry>
+          </docker>
+          <image>
+            <name>docker.io/bogdanjovanovic/${project.artifactId}:${project.version}</name>
+            <publish>${image.publish}</publish>
+          </image>
+        </configuration>
       </plugin>
     </plugins>
   </build>

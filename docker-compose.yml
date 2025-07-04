@@ -1,6 +1,5 @@
 services:
   db:
-    container_name: db
     image: pgvector/pgvector:0.8.0-pg17
     restart: unless-stopped
     ports:
@@ -9,22 +8,15 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: rootpassword
       POSTGRES_DB: leaf_chatbot
-#      PGDATA: /var/lib/postgresql/data/pgdata
-#    volumes:
-#      - db:/var/lib/postgresql/data
 
-  adminer:
-    container_name: adminer
-    image: adminer
+  leaf_chatbot:
+    image: bogdanjovanovic/leaf-chatbot:0.0.1
     restart: unless-stopped
     ports:
-      - "8000:8080"
-#    networks:
-#      - botnetwork
-#
-#networks:
-#  botnetwork:
-#    name: langchainnetwork
-#    driver: bridge
-#volumes:
-#  db:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db/leaf_chatbot
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      LEAF_MARKDOWN_DIR: /leaf-docs
+    volumes:
+      - ./leaf-docs:/leaf-docs
