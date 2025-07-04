@@ -2,9 +2,6 @@ spring:
   application:
     name: leaf-chatbot
   datasource:
-    url: jdbc:postgresql://localhost:5432/leaf_chatbot
-    username: postgres
-    password: rootpassword
     driver-class-name: org.postgresql.Driver
   sql:
     init:
