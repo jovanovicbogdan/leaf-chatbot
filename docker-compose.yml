@@ -5,9 +5,15 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: rootpassword
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: leaf_chatbot
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "8000:8080"
 
   leaf_chatbot:
     image: bogdanjovanovic/leaf-chatbot:0.0.1

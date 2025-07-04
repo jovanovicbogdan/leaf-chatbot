@@ -1,6 +1,5 @@
 package dev.bogdanjovanovic.leafchatbot;
 
-import org.springframework.ai.anthropic.AnthropicChatModel;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +13,9 @@ public class ChatClientConfig {
     return ChatClient.create(chatModel);
   }
 
-  @Bean
-  public ChatClient anthropicChatClient(AnthropicChatModel chatModel) {
-    return ChatClient.create(chatModel);
-  }
+//  @Bean
+//  public ChatClient anthropicChatClient(AnthropicChatModel chatModel) {
+//    return ChatClient.create(chatModel);
+//  }
 
 }
