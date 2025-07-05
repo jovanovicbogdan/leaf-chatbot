@@ -1,5 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/leaf_chatbot
-    username: postgres
-    password: rootpassword
