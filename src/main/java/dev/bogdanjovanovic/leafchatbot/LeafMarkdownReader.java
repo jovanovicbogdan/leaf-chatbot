@@ -15,24 +15,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class LeafMarkdownReader {
 
-  private final List<FileSystemResource> resources;
+  private List<FileSystemResource> resources;
 
   public LeafMarkdownReader() {
-    final var leafDocs = System.getenv("LEAF_MARKDOWN_DIR");
-    if (leafDocs == null || leafDocs.isEmpty()) {
-      throw new RuntimeException("Please set LEAF_MARKDOWN_DIR environment variable.");
-    }
-    try (Stream<Path> paths = Files.walk(Paths.get(leafDocs))) {
-      this.resources = paths
-          .filter(Files::isRegularFile)
-          .map(p -> new FileSystemResource(p.toFile()))
-          .toList();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+
   }
 
   public List<LoadedMarkdownFile> loadMarkdown() {
+    setResources();
     return resources.stream()
         .map(r -> {
           final var config = MarkdownDocumentReaderConfig.builder()
@@ -50,6 +40,22 @@ public class LeafMarkdownReader {
 
           return new LoadedMarkdownFile(filename, documents, splitter.apply(documents));
         }).toList();
+  }
+
+  private void setResources() {
+    final var leafDocs = System.getenv("LEAF_MARKDOWN_DIR");
+    if (leafDocs == null || leafDocs.isEmpty()) {
+      throw new RuntimeException("Please set LEAF_MARKDOWN_DIR environment variable.");
+    }
+
+    try (Stream<Path> paths = Files.walk(Paths.get(leafDocs))) {
+      this.resources = paths
+          .filter(Files::isRegularFile)
+          .map(p -> new FileSystemResource(p.toFile()))
+          .toList();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
 }

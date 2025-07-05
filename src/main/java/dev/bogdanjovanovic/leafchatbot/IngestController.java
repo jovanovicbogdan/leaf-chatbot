@@ -17,9 +17,16 @@ public class IngestController {
   }
 
   @PostMapping
-  public void ingest(HttpServletResponse response) {
-    ingestService.ingest();
-    response.setStatus(HttpStatus.CREATED.value());
+  public IngestResponse ingest(HttpServletResponse response) {
+    final var ingestedResponse = ingestService.ingest();
+
+    if (ingestedResponse.documentsIngested() > 0) {
+      response.setStatus(HttpStatus.CREATED.value());
+    } else {
+      response.setStatus(HttpStatus.BAD_REQUEST.value());
+    }
+
+    return ingestedResponse;
   }
 
 }

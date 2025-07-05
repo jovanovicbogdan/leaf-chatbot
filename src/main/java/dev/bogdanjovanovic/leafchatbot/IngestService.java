@@ -18,22 +18,32 @@ public class IngestService {
     this.leafMarkdownReader = leafMarkdownReader;
   }
 
+  // TODO: need to delete docs from vector store that have been removed from directory
   @Transactional
-  public void ingest() {
+  public IngestResponse ingest() {
     final var markdownFiles = leafMarkdownReader.loadMarkdown();
-    markdownFiles.forEach(mf -> {
+
+    if (markdownFiles.isEmpty()) {
+      return new IngestResponse(0L, "No documents found for ingestion.");
+    }
+
+    var documentsIngested = 0L;
+    for (LoadedMarkdownFile mf : markdownFiles) {
       final var splitDocs = mf.splitDocuments();
       splitDocs.forEach(sd -> {
         final var metadata = sd.getMetadata();
         final var deleteOldVersion = new Expression(
             ExpressionType.EQ,
             new Filter.Key("filename"),
-            new Filter.Value(metadata.get("filename")
-        ));
+            new Filter.Value(metadata.get("filename"))
+        );
         pgVectorStore.delete(deleteOldVersion);
       });
       pgVectorStore.add(splitDocs);
-    });
+      documentsIngested += 1L;
+    }
+
+    return new IngestResponse(documentsIngested, "Success");
   }
 
 }
