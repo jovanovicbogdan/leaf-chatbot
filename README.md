@@ -18,13 +18,15 @@ Leaf Chatbot is a Retrieval-Augmented Generation (RAG) application designed to a
 3. Set `OPENAI_API_KEY`, `POSTGRES_USER` and `POSTGRES_PASSWORD` environment variables.
 4. Run `docker compose up -d`. The backend app wil start on `http://localhost:8080`, `pgvector` on port `5432` and `adminer` (database manager) can be accessed in the browser at `http://localhost:8000`. You can log in to a `PostgreSQL` database with the credentials set in environment variables `POSTGRES_USER` and `POSTGRES_PASSWORD`.
 
+## Ingest data
+
 When data is ingested, embeddings are generated for the provided markdown files using OpenAI's `text-embedding-3-small` model and stored in a `pgvector` database. The endpoint below will first remove any existing embeddings before recalculating them. It also recursively indexes all markdown files located within the `leaf-docs` directory and its subdirectories.
 
 ```shell
 POST http://localhost:8080/api/v1/ingest
 ```
 
-Ask a question
+## Ask a question
 
 ```shell
 POST http://localhost:0880/api/v1/conversation
