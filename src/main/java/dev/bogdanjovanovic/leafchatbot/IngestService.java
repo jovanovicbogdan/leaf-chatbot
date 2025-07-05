@@ -18,7 +18,6 @@ public class IngestService {
     this.leafMarkdownReader = leafMarkdownReader;
   }
 
-  // TODO: need to delete docs from vector store that have been removed from directory
   @Transactional
   public IngestResponse ingest() {
     final var markdownFiles = leafMarkdownReader.loadMarkdown();
