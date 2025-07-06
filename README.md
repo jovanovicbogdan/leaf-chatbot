@@ -50,8 +50,8 @@ POST http://localhost:8080/api/v1/ingest
 
 ## Ask a Question
 
-The user question will be passed to an LLM along with the relevant documents to OpenAI model
-`gpt-4o`.
+The user's question, along with relevant documents and recent chat history, is sent to the OpenAI
+`gpt-4o` model.
 
 ```shell
 POST http://localhost:8080/api/v1/conversation
@@ -64,13 +64,17 @@ POST http://localhost:8080/api/v1/conversation
 
 ## Testing
 
-Integration tests use **Testcontainers** and Spring's test support to validate the full RAG pipeline, from ingestion to LLM response.
+Integration tests use **Testcontainers** and Spring's test support to validate the full RAG
+pipeline, from ingestion to LLM response.
 
-A key test case evaluates the relevancy of the chatbot's answers using `RelevancyEvaluator`, which assesses how well the model's response aligns with the retrieved context from the vector store.
+A key test case evaluates the relevancy of the chatbot's answers using `RelevancyEvaluator`, which
+assesses how well the model's response aligns with the retrieved context from the vector store.
 
 ### Key Components:
+
 - **Testcontainers**: Provides isolated PostgreSQL instance with `pgvector`.
-- **Document ingestion**: Markdown files are loaded and stored in the vector database before each test.
+- **Document ingestion**: Markdown files are loaded and stored in the vector database before each
+  test.
 - **RetrievalAugmentationAdvisor**: Enhances prompt with context-relevant documents.
 - **RelevancyEvaluator**: Validates if the generated answer matches the expected content scope.
 
@@ -84,7 +88,9 @@ final var evaluationRequest = new EvaluationRequest(
 final var evaluator = new RelevancyEvaluator(ChatClient.builder(chatModel));
 final var evaluationResponse = evaluator.evaluate(evaluationRequest);
 
-assertThat(evaluationResponse.isPass()).isTrue();
+assertThat(evaluationResponse.isPass()).
+
+isTrue();
 ```
 
 ## Build an Image and Publish to a Private Registry
