@@ -18,14 +18,9 @@ import org.springframework.ai.reader.markdown.config.MarkdownDocumentReaderConfi
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.core.io.Resource;
-import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
-public class LeafChatbotTests {
+public class LeafChatbotTests extends AbstractIntegrationTest {
 
   private List<Document> knowledgeBaseDocuments;
 
