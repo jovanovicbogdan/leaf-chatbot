@@ -28,11 +28,13 @@ POST http://localhost:8080/api/v1/ingest
 
 ## Ask a question
 
+The user question will be passed to an LLM along with the relevant documents to OpenAI model `gpt-4o`.
+
 ```shell
-POST http://localhost:0880/api/v1/conversation
+POST http://localhost:8080/api/v1/conversation
 
 {
-  "question": "How to create Page Object Model using LEAF?"
+  "query": "How to create Page Object Model in LEAF framework?"
 }
 ```
 

@@ -1,7 +1,7 @@
 # Effective Page Object Models (POMs)
 
 ## Overview
-This document provides guidelines and best practices for creating effective Page Object Models (POMs) in the project, along with examples.
+This document provides guidelines and best practices for creating effective Page Object Models (POMs) in the LEAF project, along with examples.
 
 ## What is a Page Object Model?
 A Page Object Model is a design pattern used in test automation to create an abstraction of a web page. It helps in reducing code duplication and improving test maintenance by encapsulating the page elements and actions in a separate class.
