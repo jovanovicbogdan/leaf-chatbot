@@ -1,5 +1,6 @@
 package dev.bogdanjovanovic.leafchatbot;
 
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class ConversationController {
   }
 
   @PostMapping
-  public Flux<String> conversation(@RequestBody ConversationRequest conversationRequest) {
+  public Flux<String> conversation(@Valid @RequestBody ConversationRequest conversationRequest) {
     return conversationService.conversation(conversationRequest);
   }
 
