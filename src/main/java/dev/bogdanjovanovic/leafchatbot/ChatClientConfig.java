@@ -1,7 +1,10 @@
 package dev.bogdanjovanovic.leafchatbot;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.memory.MessageWindowChatMemory;
+import org.springframework.ai.chat.memory.repository.jdbc.JdbcChatMemoryRepository;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.template.st.StTemplateRenderer;
@@ -14,8 +17,13 @@ import org.springframework.core.io.Resource;
 @Configuration
 public class ChatClientConfig {
 
-  @Value("classpath:/prompts/system-message.st")
+  @Value("classpath:/prompts/system-message-v2.st")
   private Resource systemResource;
+  private final JdbcChatMemoryRepository jdbcChatMemoryRepository;
+
+  public ChatClientConfig(JdbcChatMemoryRepository jdbcChatMemoryRepository) {
+    this.jdbcChatMemoryRepository = jdbcChatMemoryRepository;
+  }
 
   @Bean
   public ChatClient openAiChatClient(OpenAiChatModel chatModel, PgVectorStore pgVectorStore) {
@@ -32,8 +40,15 @@ public class ChatClientConfig {
         .promptTemplate(promptTemplate)
         .build();
 
+    final var chatMemory = MessageWindowChatMemory.builder()
+        .chatMemoryRepository(jdbcChatMemoryRepository)
+        .maxMessages(15)
+        .build();
+
+    final var chatMemoryAdvisor = MessageChatMemoryAdvisor.builder(chatMemory).build();
+
     return ChatClient.builder(chatModel)
-        .defaultAdvisors(qaAdvisor)
+        .defaultAdvisors(qaAdvisor, chatMemoryAdvisor)
         .build();
   }
 

@@ -1,6 +1,7 @@
 package dev.bogdanjovanovic.leafchatbot;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -16,7 +17,8 @@ public class ConversationService {
 
   public Flux<String> conversation(ConversationRequest conversationRequest) {
     return openAiChatClient.prompt()
-        .user(conversationRequest.query())
+        .user(conversationRequest.query().strip())
+        .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, conversationRequest.conversationId()))
         .stream()
         .content();
   }

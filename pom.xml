@@ -30,6 +30,9 @@
   <properties>
     <java.version>17</java.version>
     <spring-ai.version>1.0.0</spring-ai.version>
+    <postgresql.version>42.7.3</postgresql.version>
+    <testcontainers-junit-jupiter.version>1.19.8</testcontainers-junit-jupiter.version>
+    <testcontainers-postgresql.version>1.19.8</testcontainers-postgresql.version>
   </properties>
   <dependencies>
     <dependency>
@@ -57,9 +60,12 @@
       <artifactId>spring-ai-markdown-document-reader</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.ai</groupId>
+      <artifactId>spring-ai-starter-model-chat-memory-repository-jdbc</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.7.3</version>
     </dependency>
 
     <dependency>
@@ -70,13 +76,11 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>1.19.8</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>postgresql</artifactId>
-      <version>1.19.8</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -89,6 +93,21 @@
         <version>${spring-ai.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${postgresql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${testcontainers-junit-jupiter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${testcontainers-postgresql.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

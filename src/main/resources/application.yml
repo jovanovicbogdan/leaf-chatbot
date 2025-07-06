@@ -9,7 +9,6 @@ spring:
   sql:
     init:
       mode: always
-      schema-locations: optional:classpath:schema.sql # optional means that app will start even if the file doesn't exist
   ai:
     vectorstore:
       pgvector:
@@ -30,3 +29,7 @@ spring:
     chat:
       client:
         enabled: false
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
