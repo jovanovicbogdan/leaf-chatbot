@@ -2,12 +2,14 @@ package dev.bogdanjovanovic.leafchatbot;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/ingest")
+@CrossOrigin
 public class IngestController {
 
   private final IngestService ingestService;
