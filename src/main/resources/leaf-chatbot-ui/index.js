@@ -27,7 +27,7 @@ async function runConversation() {
   const inputElement = document.getElementById('query');
   const query = inputElement.value;
   if (!query) {
-    alert('Please ask a question.');
+    alert('A question cannot be empty.');
     return;
   }
   inputElement.value = '';
