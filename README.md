@@ -12,7 +12,7 @@ a test automation framework built on top of Playwright, used for E2E, UI and API
   context from the vector store.
 - Supports chat history with the last **15** messages; the client is responsible for managing the
   `conversationId`.
-- Enables response streaming.
+- Enables response streaming as server-sent events.
 
 ## Tech Stack
 
@@ -88,9 +88,7 @@ final var evaluationRequest = new EvaluationRequest(
 final var evaluator = new RelevancyEvaluator(ChatClient.builder(chatModel));
 final var evaluationResponse = evaluator.evaluate(evaluationRequest);
 
-assertThat(evaluationResponse.isPass()).
-
-isTrue();
+assertThat(evaluationResponse.isPass()).isTrue();
 ```
 
 ## Build an Image and Publish to a Private Registry
