@@ -23,6 +23,8 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db/leaf_chatbot
       OPENAI_API_KEY: ${OPENAI_API_KEY}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       LEAF_MARKDOWN_DIR: /leaf-docs
     volumes:
       - ./leaf-docs:/leaf-docs

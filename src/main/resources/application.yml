@@ -6,9 +6,6 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
-  sql:
-    init:
-      mode: always
   ai:
     vectorstore:
       pgvector:
@@ -16,6 +13,7 @@ spring:
         distance-type: cosine_distance
         dimensions: 1536
         max-document-batch-size: 10000
+        initialize-schema: true
     openai:
       api-key: ${OPENAI_API_KEY}
       chat:
